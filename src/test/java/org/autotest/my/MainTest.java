@@ -4,8 +4,6 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
-import java.util.concurrent.TimeUnit;
-
 import static org.junit.Assert.assertTrue;
 
 public class MainTest {
@@ -19,7 +17,6 @@ public class MainTest {
             driver.manage().window().fullscreen();
             homePage.open();
             // Waiting for CAPCHA
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             assertTrue(homePage.atPage());
             homePage.openCatalogue();
             homePage.openComputers();
