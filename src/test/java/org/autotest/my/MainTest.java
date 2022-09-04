@@ -26,7 +26,8 @@ public class MainTest {
             noteBooks.setPriceTo("3000");
             driver.manage().timeouts().getPageLoadTimeout();
             // Main test
-            assertTrue(searchResultCheck.Check(driver, "Lenovo"));
+            assertTrue(searchResultCheck.CheckManufacturer(driver, "Lenovo"));
+            assertTrue(searchResultCheck.CheckPrice("25000","30000"));
             driver.close();
     }
 }

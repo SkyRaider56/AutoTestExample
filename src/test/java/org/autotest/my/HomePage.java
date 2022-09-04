@@ -14,7 +14,8 @@ public class HomePage {
     private By computers = By.xpath("//*[@id='catalogPopup']");
 
     public void open() {
-        driver.get("http://market.yandex.ru");
+        //driver.get("http://market.yandex.ru");
+        driver.get(ConfProperties.getProperty("homepage"));
         driver.manage().timeouts().getPageLoadTimeout();
     }
 

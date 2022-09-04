@@ -13,7 +13,7 @@ public class SearchResultCheck {
         this.driver = driver;
     }
 
-    boolean Check(WebDriver driver, String checkName) {
+    boolean CheckManufacturer(WebDriver driver, String checkName) {
         List<WebElement> searchResults = driver.findElements(By.tagName(checkName));
         boolean temp = false;
         for (int i = 0; i < searchResults.size(); i++) {
@@ -22,6 +22,10 @@ public class SearchResultCheck {
             }
         }
         return temp;
+    }
+
+    boolean CheckPrice(String from,String to) {
+        return Integer.parseInt(from)>=25000 && Integer.parseInt(to)<=30000;
     }
 }
 

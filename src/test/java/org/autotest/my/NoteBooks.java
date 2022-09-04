@@ -26,9 +26,4 @@ public class NoteBooks {
     public void setPriceTo(String setTo) {
         driver.findElement(priceTo).sendKeys(setTo);
     }
-    // Пока хз как это сделать
-    public boolean checkTheChoise(String models, String prices) {
-        return true;
-    }
-
 }
