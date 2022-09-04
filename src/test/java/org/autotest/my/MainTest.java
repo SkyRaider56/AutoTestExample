@@ -29,7 +29,7 @@ public class MainTest {
             noteBooks.setPriceTo("3000");
             driver.manage().timeouts().getPageLoadTimeout();
             // Main test
-            searchResultCheck.Check(driver, "Lenovo");
+            assertTrue(searchResultCheck.Check(driver, "Lenovo"));
             driver.close();
     }
 }
