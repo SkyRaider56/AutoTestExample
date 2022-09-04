@@ -17,7 +17,7 @@ public class SearchResultCheck {
         List<WebElement> searchResults = driver.findElements(By.tagName(checkName));
         boolean temp = false;
         for (int i = 0; i < searchResults.size(); i++) {
-            if (searchResults.get(i).equals(checkName)) {
+            if (searchResults.size()>0&&searchResults.get(i).equals(checkName)) {
                 temp = true;
             }
         }
