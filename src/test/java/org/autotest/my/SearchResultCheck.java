@@ -13,19 +13,30 @@ public class SearchResultCheck {
         this.driver = driver;
     }
 
+    // Проверка фильтрации по производителю
     boolean CheckManufacturer(WebDriver driver, String checkName) {
         List<WebElement> searchResults = driver.findElements(By.tagName(checkName));
         boolean temp = false;
-        for (int i = 0; i < searchResults.size(); i++) {
-            if (searchResults.size()>0&&searchResults.get(i).equals(checkName)) {
+        for (WebElement searchResult : searchResults) {
+            if (searchResult.getText().equals(checkName)) {
                 temp = true;
             }
         }
         return temp;
     }
-
+    // Проверка фильтрации по цене
     boolean CheckPrice(String from,String to) {
-        return Integer.parseInt(from)>=25000 && Integer.parseInt(to)<=30000;
+        List<WebElement> searchResultsPrice = driver.findElements(By.xpath("//span[@data-autotest-value='25','26','27','28','29']"));
+        int intPriceFrom = Integer.parseInt(from);
+        int intPriceTo = Integer.parseInt(to);
+        boolean temp = false;
+        for (WebElement webElement : searchResultsPrice) {
+            if (Integer.parseInt(webElement.getText()) > intPriceFrom
+                    &&
+                    Integer.parseInt(webElement.getText()) < intPriceTo)
+                temp = true;
+        }
+        return temp;
     }
 }
 
