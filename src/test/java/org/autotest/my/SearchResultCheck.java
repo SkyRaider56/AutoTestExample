@@ -13,16 +13,10 @@ public class SearchResultCheck {
         this.driver = driver;
     }
 
-    List<WebElement> searchResults = driver.findElements(By.tagName("Lenovo"));
-
-     //boolean check;
-
-    public void Check(boolean check) {
-        for (int i = 0; i < 8; i++) {
-            if (searchResults.get(i).getTagName().equals("Lenovo"))
-                check = true;
-            else
-                check = false;
+    public void Check(WebDriver driver, String checkName) {
+        List<WebElement> searchResults = driver.findElements(By.tagName(checkName));
+        for(int i =0; i<10;i++) {
+            searchResults.get(i).equals(checkName);
         }
     }
 }

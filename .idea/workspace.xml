@@ -4,17 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0fe07b63-da1e-446c-ae54-07b96bdbebbd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/autotest/my/SearchResultCheck.java" afterDir="false" />
+    <list default="true" id="0fe07b63-da1e-446c-ae54-07b96bdbebbd" name="Changes" comment="Delete some not needed comments, try to make this check algorithm">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/autotest/my/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/autotest/my/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/autotest/my/Computers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/autotest/my/Computers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/autotest/my/ConfProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/autotest/my/ConfProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/autotest/my/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/autotest/my/HomePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/autotest/my/MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/autotest/my/MainTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/autotest/my/NoteBooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/autotest/my/NoteBooks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/conf.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/conf.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/autotest/my/SearchResultCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/autotest/my/SearchResultCheck.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +58,22 @@
       <recent name="org.example" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.MainTest">
+  <component name="RunManager" selected="JUnit.MainTest (1)">
+    <configuration name="MainTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="AutoTestExample" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.autotest.my.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.autotest.my" />
+      <option name="MAIN_CLASS_NAME" value="org.autotest.my.MainTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MainTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="AutoTestExample" />
       <extension name="coverage">
@@ -91,6 +99,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MainTest (1)" />
         <item itemvalue="JUnit.MainTest" />
         <item itemvalue="JAR Application.selenide-6.7.3.jar (1)" />
         <item itemvalue="JAR Application.selenide-6.7.3.jar" />
@@ -106,6 +115,14 @@
       <option name="presentableId" value="Default" />
       <updated>1661845486454</updated>
     </task>
+    <task id="LOCAL-00001" summary="Delete some not needed comments, try to make this check algorithm">
+      <created>1662293909366</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1662293909366</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -118,5 +135,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Delete some not needed comments, try to make this check algorithm" />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete some not needed comments, try to make this check algorithm" />
   </component>
 </project>
