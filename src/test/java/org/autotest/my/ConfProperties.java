@@ -1,4 +1,4 @@
-package org.example;
+package org.autotest.my;
 
 import java.util.Properties;
 
