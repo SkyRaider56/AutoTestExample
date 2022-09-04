@@ -1,0 +1,348 @@
+Index: src/test/java/org/autotest/my/NoteBooks.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\n\nimport org.openqa.selenium.By;\nimport org.openqa.selenium.WebDriver;\n\npublic class NoteBooks {\n    private WebDriver driver;\n    public NoteBooks(WebDriver driver) {\n        this.driver=driver;\n    }\n\n    private By showAllManufacturers = By.xpath(\".//*[text()='Показать всё']/..\");\n    private By Lenovo = By.xpath(\".//*[text()='Lenovo']/..\");\n    private By priceFrom = By.xpath(\"//input[@id='textfield4897909888']\");\n    private By priceTo = By.xpath(\"//input[@id='textfield4499784019']\");\n\n\n    public void chooseLenovo() {\n        driver.findElement(showAllManufacturers).click();\n        driver.findElement(Lenovo).click();\n    }\n\n    public void setPriceFrom(String setFrom) {\n        driver.findElement(priceTo).sendKeys(setFrom);\n    }\n    public void setPriceTo(String setTo) {\n        driver.findElement(priceTo).sendKeys(setTo);\n    }\n    // Пока хз как это сделать\n    public boolean checkTheChoise(String models, String prices) {\n        return true;\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/org/autotest/my/NoteBooks.java b/src/test/java/org/autotest/my/NoteBooks.java
+--- a/src/test/java/org/autotest/my/NoteBooks.java	(revision b6d0903034917b53ad44360db4315f1839b43617)
++++ b/src/test/java/org/autotest/my/NoteBooks.java	(date 1662025507833)
+@@ -1,4 +1,4 @@
+-package org.example;
++package org.autotest.my;
+ 
+ import org.openqa.selenium.By;
+ import org.openqa.selenium.WebDriver;
+Index: src/test/java/org/autotest/my/MainTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\n\nimport org.junit.Test;\nimport org.openqa.selenium.WebDriver;\nimport org.openqa.selenium.safari.SafariDriver;\n\nimport java.util.concurrent.TimeUnit;\n\nimport static org.junit.Assert.assertTrue;\n\npublic class MainTest {\n    private WebDriver driver = new SafariDriver();\n    private HomePage homePage = new HomePage(driver);\n    private Computers computers = new Computers(driver);\n    private NoteBooks noteBooks = new NoteBooks(driver);\n    @Test\n    public void NoteTest() {\n            //  1. Запуск развёрнутого на весь экран браузера.\n            driver.manage().window().fullscreen();\n            //  2. Переход на сайт https://market.yandex.ru/\n            homePage.open();\n            //  2.1 Ожидание для ввода капчи\n            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);\n            //  3. Перейти к разделу \"Компьютеры\" и выбрать \"Ноутбуки\".\n            homePage.openCatalogue();\n            homePage.openComputers();\n            computers.chooseNotebooks();\n            //  4. Задать параметры поиска:\n            //  - Производитель: Lenovo (с возможностью замены в будущем)\n            //          - Цена: от 25000 руб. до 30000 руб.\n            noteBooks.chooseLenovo();\n            noteBooks.setPriceFrom(\"25000\");\n            noteBooks.setPriceTo(\"3000\");\n            //  5. Нажать кнопку Показать.\n            driver.manage().timeouts().getPageLoadTimeout();\n            //  6. На первой странице с результатами убедиться, что найденные товары соответствуют заданным параметрам поиска.\n            assertTrue(homePage.atPage());\n            //  7. Закрыть браузер.\n            driver.close();\n    }\n}\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/org/autotest/my/MainTest.java b/src/test/java/org/autotest/my/MainTest.java
+--- a/src/test/java/org/autotest/my/MainTest.java	(revision b6d0903034917b53ad44360db4315f1839b43617)
++++ b/src/test/java/org/autotest/my/MainTest.java	(date 1662292669265)
+@@ -1,4 +1,4 @@
+-package org.example;
++package org.autotest.my;
+ 
+ import org.junit.Test;
+ import org.openqa.selenium.WebDriver;
+@@ -15,27 +15,20 @@
+     private NoteBooks noteBooks = new NoteBooks(driver);
+     @Test
+     public void NoteTest() {
+-            //  1. Запуск развёрнутого на весь экран браузера.
+             driver.manage().window().fullscreen();
+-            //  2. Переход на сайт https://market.yandex.ru/
+             homePage.open();
+-            //  2.1 Ожидание для ввода капчи
++            // Waiting for CAPCHA
+             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+-            //  3. Перейти к разделу "Компьютеры" и выбрать "Ноутбуки".
++            assertTrue(homePage.atPage());
+             homePage.openCatalogue();
+             homePage.openComputers();
+             computers.chooseNotebooks();
+-            //  4. Задать параметры поиска:
+-            //  - Производитель: Lenovo (с возможностью замены в будущем)
+-            //          - Цена: от 25000 руб. до 30000 руб.
+             noteBooks.chooseLenovo();
+             noteBooks.setPriceFrom("25000");
+             noteBooks.setPriceTo("3000");
+-            //  5. Нажать кнопку Показать.
+             driver.manage().timeouts().getPageLoadTimeout();
+-            //  6. На первой странице с результатами убедиться, что найденные товары соответствуют заданным параметрам поиска.
+-            assertTrue(homePage.atPage());
+-            //  7. Закрыть браузер.
++            // Main test
++
+             driver.close();
+     }
+ }
+Index: src/main/java/org/autotest/my/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\n\n\npublic class Main {\n    public static void main(String[] args) {\n\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/autotest/my/Main.java b/src/main/java/org/autotest/my/Main.java
+--- a/src/main/java/org/autotest/my/Main.java	(revision b6d0903034917b53ad44360db4315f1839b43617)
++++ b/src/main/java/org/autotest/my/Main.java	(date 1662025507858)
+@@ -1,4 +1,4 @@
+-package org.example;
++package org.autotest.my;
+ 
+ 
+ public class Main {
+Index: src/test/java/org/autotest/my/Computers.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\n\nimport org.openqa.selenium.By;\nimport org.openqa.selenium.WebDriver;\n\npublic class Computers {\n    private WebDriver driver;\n\n    public Computers(WebDriver driver) {\n        this.driver=driver;\n    }\n\n    private By notebooks = By.xpath(\".//*[text()='Ноутбуки']/..\");\n\n    public void chooseNotebooks() {\n        driver.findElement(notebooks).click();\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/org/autotest/my/Computers.java b/src/test/java/org/autotest/my/Computers.java
+--- a/src/test/java/org/autotest/my/Computers.java	(revision b6d0903034917b53ad44360db4315f1839b43617)
++++ b/src/test/java/org/autotest/my/Computers.java	(date 1662025507853)
+@@ -1,4 +1,4 @@
+-package org.example;
++package org.autotest.my;
+ 
+ import org.openqa.selenium.By;
+ import org.openqa.selenium.WebDriver;
+Index: src/test/java/org/autotest/my/HomePage.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\n\nimport org.openqa.selenium.By;\nimport org.openqa.selenium.WebDriver;\n\npublic class HomePage {\n    private WebDriver driver;\n\n    HomePage(WebDriver driver) {\n        this.driver = driver;\n    }\n\n    private By catalogueButton = By.xpath(\"//*[@id=\\\"catalogPopupButton\\\"]\");\n    private By computers = By.xpath(\"//*[@id='catalogPopup']\");\n\n    public void open() {\n        driver.get(\"http://market.yandex.ru\");\n        driver.manage().timeouts().getPageLoadTimeout();\n    }\n\n     public void openCatalogue() {\n\n        driver.findElement(catalogueButton).click();\n        driver.manage().timeouts().getPageLoadTimeout();\n     }\n\n     public void openComputers() {\n\n        driver.findElement(computers).click();\n         driver.manage().timeouts().getPageLoadTimeout();\n     }\n\n    boolean atPage() {\n        return driver.getTitle().equals(\"Интернет-магазин Яндекс.Маркет — покупки с быстрой доставкой\");\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/org/autotest/my/HomePage.java b/src/test/java/org/autotest/my/HomePage.java
+--- a/src/test/java/org/autotest/my/HomePage.java	(revision b6d0903034917b53ad44360db4315f1839b43617)
++++ b/src/test/java/org/autotest/my/HomePage.java	(date 1662025507843)
+@@ -1,4 +1,4 @@
+-package org.example;
++package org.autotest.my;
+ 
+ import org.openqa.selenium.By;
+ import org.openqa.selenium.WebDriver;
+Index: src/test/java/org/autotest/my/SerachResultCheck.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/org/autotest/my/SerachResultCheck.java b/src/test/java/org/autotest/my/SerachResultCheck.java
+new file mode 100644
+--- /dev/null	(date 1662292850844)
++++ b/src/test/java/org/autotest/my/SerachResultCheck.java	(date 1662292850844)
+@@ -0,0 +1,26 @@
++package org.autotest.my;
++
++import org.openqa.selenium.By;
++import org.openqa.selenium.WebDriver;
++import org.openqa.selenium.WebElement;
++
++import java.util.List;
++
++public class SerachResultCheck {
++    private WebDriver driver;
++    public SerachResultCheck(WebDriver driver) {
++        this.driver=driver;
++    }
++
++    List<WebElement> searchResults = driver.findElements(By.tagName("Lenovo"));
++
++
++    public boolean Check(List<WebElement> searchResults) {
++        for(int i = 0; i< searchResults.size(); i++) {
++            if (searchResults.get(i).getTagName().equals("Lenovo"))
++                return true;
++            else return false;
++        }
++    }
++
++}
+Index: src/test/java/org/autotest/my/ConfProperties.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package org.example;\n\nimport java.util.Properties;\n\npublic class ConfProperties {\n    protected static Properties PROPERTIES;\n\n    public static String getProperty(String key) {\n        return PROPERTIES.getProperty(key);\n    }\n}\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/org/autotest/my/ConfProperties.java b/src/test/java/org/autotest/my/ConfProperties.java
+--- a/src/test/java/org/autotest/my/ConfProperties.java	(revision b6d0903034917b53ad44360db4315f1839b43617)
++++ b/src/test/java/org/autotest/my/ConfProperties.java	(date 1662025507848)
+@@ -1,4 +1,4 @@
+-package org.example;
++package org.autotest.my;
+ 
+ import java.util.Properties;
+ 
+Index: src/test/resources/conf.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/src/test/resources/conf.properties b/src/test/resources/conf.properties
+--- a/src/test/resources/conf.properties	(revision b6d0903034917b53ad44360db4315f1839b43617)
++++ b/src/test/resources/conf.properties	(date 1662020842705)
+@@ -1,0 +1,1 @@
++homepage = https://market.yandex.ru
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n    <modelVersion>4.0.0</modelVersion>\n\n    <groupId>org.example</groupId>\n    <artifactId>untitled2</artifactId>\n    <version>1.0-SNAPSHOT</version>\n\n    <properties>\n        <maven.compiler.source>18</maven.compiler.source>\n        <maven.compiler.target>18</maven.compiler.target>\n        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\n    </properties>\n    \n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision b6d0903034917b53ad44360db4315f1839b43617)
++++ b/pom.xml	(date 1662022313114)
+@@ -13,5 +13,33 @@
+         <maven.compiler.target>18</maven.compiler.target>
+         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+     </properties>
+-    
++
++<dependencies>
++    <dependency>
++        <groupId>org.seleniumhq.selenium</groupId>
++        <artifactId>selenium-java</artifactId>
++        <version>4.4.0</version>
++    </dependency>
++
++    <!-- https://mvnrepository.com/artifact/junit/junit -->
++    <dependency>
++        <groupId>junit</groupId>
++        <artifactId>junit</artifactId>
++        <version>4.13.2</version>
++        <scope>test</scope>
++    </dependency>
++
++    <dependency>
++        <groupId>org.slf4j</groupId>
++        <artifactId>slf4j-api</artifactId>
++        <version>2.0.0</version>
++    </dependency>
++    <dependency>
++        <groupId>org.slf4j</groupId>
++        <artifactId>slf4j-simple</artifactId>
++        <version>2.0.0</version>
++    </dependency>
++
++</dependencies>
++
+ </project>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"0fe07b63-da1e-446c-ae54-07b96bdbebbd\" name=\"Changes\" comment=\"\" />\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"ProjectId\" id=\"2E4CUjDHld5t8fGaLuSdkOEXkJH\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"autoscrollFromSource\" value=\"true\" />\n    <option name=\"autoscrollToSource\" value=\"true\" />\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\"\n  }\n}]]></component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"0fe07b63-da1e-446c-ae54-07b96bdbebbd\" name=\"Changes\" comment=\"\" />\n      <created>1661845486454</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1661845486454</updated>\n    </task>\n    <servers />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision b6d0903034917b53ad44360db4315f1839b43617)
++++ b/.idea/workspace.xml	(date 1662288145881)
+@@ -1,15 +1,42 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="AutoImportSettings">
++    <option name="autoReloadType" value="SELECTIVE" />
++  </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="0fe07b63-da1e-446c-ae54-07b96bdbebbd" name="Changes" comment="" />
++    <list default="true" id="0fe07b63-da1e-446c-ae54-07b96bdbebbd" name="Changes" comment="">
++      <change afterPath="$PROJECT_DIR$/src/test/java/org/autotest/my/SerachResultCheck.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/autotest/my/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/autotest/my/Main.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/test/java/org/autotest/my/Computers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/autotest/my/Computers.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/test/java/org/autotest/my/ConfProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/autotest/my/ConfProperties.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/test/java/org/autotest/my/HomePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/autotest/my/HomePage.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/test/java/org/autotest/my/MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/autotest/my/MainTest.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/test/java/org/autotest/my/NoteBooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/autotest/my/NoteBooks.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/test/resources/conf.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/conf.properties" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
++  </component>
++  <component name="CodeInsightWorkspaceSettings">
++    <option name="optimizeImportsOnTheFly" value="true" />
++  </component>
++  <component name="FileTemplateManagerImpl">
++    <option name="RECENT_TEMPLATES">
++      <list>
++        <option value="Class" />
++      </list>
++    </option>
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
++  <component name="MarkdownSettingsMigration">
++    <option name="stateVersion" value="1" />
++  </component>
+   <component name="ProjectId" id="2E4CUjDHld5t8fGaLuSdkOEXkJH" />
+   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+   <component name="ProjectViewState">
+@@ -21,9 +48,55 @@
+   <component name="PropertiesComponent"><![CDATA[{
+   "keyToString": {
+     "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true"
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
++    "project.structure.last.edited": "Modules",
++    "project.structure.proportion": "0.0",
++    "project.structure.side.proportion": "0.0",
++    "settings.editor.selected.configurable": "preferences.pluginManager"
+   }
+ }]]></component>
++  <component name="RecentsManager">
++    <key name="MoveFile.RECENT_KEYS">
++      <recent name="$PROJECT_DIR$/src/main" />
++      <recent name="$PROJECT_DIR$" />
++    </key>
++    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
++      <recent name="org.example" />
++    </key>
++  </component>
++  <component name="RunManager" selected="JUnit.MainTest">
++    <configuration name="MainTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
++      <module name="AutoTestExample" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="org.example.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <option name="PACKAGE_NAME" value="org.example" />
++      <option name="MAIN_CLASS_NAME" value="org.example.MainTest" />
++      <option name="TEST_OBJECT" value="class" />
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration name="selenide-6.7.3.jar (1)" type="JarApplication" temporary="true">
++      <option name="JAR_PATH" value="$PROJECT_DIR$/src/main/selenide-6.7.3.jar" />
++      <method v="2" />
++    </configuration>
++    <configuration name="selenide-6.7.3.jar" type="JarApplication" temporary="true">
++      <option name="JAR_PATH" value="$PROJECT_DIR$/selenide-6.7.3.jar" />
++      <method v="2" />
++    </configuration>
++    <recent_temporary>
++      <list>
++        <item itemvalue="JUnit.MainTest" />
++        <item itemvalue="JAR Application.selenide-6.7.3.jar (1)" />
++        <item itemvalue="JAR Application.selenide-6.7.3.jar" />
++      </list>
++    </recent_temporary>
++  </component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+@@ -35,4 +108,15 @@
+     </task>
+     <servers />
+   </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State />
++          </value>
++        </entry>
++      </map>
++    </option>
++  </component>
+ </project>
+\ No newline at end of file
